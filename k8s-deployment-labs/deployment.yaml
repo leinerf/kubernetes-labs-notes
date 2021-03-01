@@ -1,25 +1,25 @@
-apiVersion: apps/v1  #Older versions of k8s use apps/v1beta1
-kind: Deployment
+apiVersion: apps/v1  #Older versions of k8s use apps/v1beta1
+kind: Deployment
 metadata:
-  name: hello-deploy
+  name: hello-deploy
 spec:
-  replicas: 10
-  selector:
-    matchLabels:
-      app: hello-world
-  minReadySeconds: 10
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
-  template:
-    metadata:
-      labels:
-        app: hello-world
-    spec:
-      containers:
-      - name: hello-pod
-        image: nigelpoulton/k8sbook:latest
-        ports:
-        - containerPort: 8080
+  replicas: 10
+  selector:
+    matchLabels:
+      app: hello-world #Immutable. Once defined can't be redefined
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: hello-world #Immutable. Once defined can't be redefined
+    spec:
+      containers:
+      - name: hello-pod
+        image: nigelpoulton/k8sbook:edge   # This line changed
+        ports:
+        - containerPort: 8080
